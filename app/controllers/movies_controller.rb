@@ -8,12 +8,28 @@ class MoviesController < ApplicationController
   end
 
   def index
+    print("\n 3")
+    print(session[:rating])
+    print("\n 4")
+    print(session[:sort_by])
+    print("\n")
+    
     @all_ratings =  Movie.all_ratings
     @param_ratings =  params[:ratings].nil? ? {} : params[:ratings]
-    @ratings_to_show = params[:ratings].nil? ? @all_ratings : params[:ratings].keys ;
-    print(@ratings_to_show.each{|a| a })
-    @sort = params[:sort].nil? ? "" : params[:sort]
-    print(@sort+ " \n")
+    @ratings_to_show = params[:ratings].nil? ?  session[:rating] || @all_ratings : params[:ratings].keys ;
+
+
+    @sort = params[:sort].nil? ? session[:sort_by] || "" : params[:sort]
+    
+    session[:rating] = @ratings_to_show
+    session[:sort_by] = @sort
+    
+    print("\n 1")
+    print(session[:rating])
+    print("\n 2")
+    print(session[:sort_by])
+    print("\n")
+    
     @movies = Movie.with_ratings(@ratings_to_show).order(@sort)
   end
 
