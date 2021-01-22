@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
   def Movie.with_ratings(ratings_to_show)
     display_rating1 = []
     ratings_to_show.each_with_index  do |val,index| 
-      display_rating1[index] = val[0]
+      display_rating1[index] = val
      end
     unless display_rating1.length == 0
       where(rating:display_rating1)
